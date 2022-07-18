@@ -1,0 +1,129 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-6">
+            <div class="mb-2 pageHeading">
+                <h4 class="">Admin List</h4>
+            </div>
+        </div>
+        <div class="col-xl-6">
+            <div class="text-right my-auto mb-4">
+                <button type="button" class="btn btn-success btn-sm mb-2 mr-2 " (click)="openSubject(subject)">
+                    <i class="mdi mdi-plus mr-1"></i> Add User
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-2">
+        <div class="card-body">
+            <table id="adminlist" class="table table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>S. No</th>
+                        <th>Project Name</th>
+                        <th>Status</th>
+                        <th>Qualification file</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody > 
+                    <tr *ngFor="let list of projectArr ;let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{list.projectName}}</td>
+                        <td>{{list.status}}</td>
+                        <td>{{list.quotationFile}}</td>
+                        <td>
+                            <i class="fas fa-edit  text-success mr-2" (click)="editBatch(list, subject)"></i>
+                            <i class="fa fa-trash text-danger" aria-hidden="true"
+                                (click)="openModal(dModal,list.id)"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<ng-template #dModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Confirm Delete</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div>
+        <h6 class="ml-3 mt-2">Are you sure to Delete this ?</h6>
+        <div class="text-right mt-2 mr-2">
+            <button type="button" class="btn btn-primary btn-sm ml-2 mb-3" (click)="deleteData(modal)">Yes</button>
+        </div>
+    </div>
+</ng-template>
+<ng-template #subject let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Subject</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" id="subject">
+        <div class="content-wrapper container-xxl p-0">
+            <div class="content-body">
+                <section id="emp-column-form">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <perfect-scrollbar [config]="configData">
+                                    <div class="card-body overflow-auto" style=" max-height: 77vh;">
+                                        <h4 class="card-title">Admin</h4>
+                                        <form class="form" [formGroup]="projectForm" (ngSubmit)="Submit(modal)">
+                                            <div class="row">
+
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="projectName">Project Name</label>
+                                                        <input type="text" id="projectName"
+                                                            formControlName="projectName"
+                                                            [(ngModel)]="projectObj.projectName" class="form-control"
+                                                            placeholder="projectName" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="status">Status</label>
+                                                        <input type="text" id="name"
+                                                            formControlName="status"
+                                                            [(ngModel)]="projectObj.status" class="form-control"
+                                                            placeholder="Status" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <fieldset class="form-group">
+                                                            <label for="quotationFile">Certification</label>
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input" type="file"
+                                                                    formControlName="quotationFile"
+                                                                    [(ngModel)]="projectObj.quotationFile" ng2FileSelect
+                                                                    quotationFile id="quotationFile" />
+                                                                <label class="custom-file-label">Choose file</label>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                               
+                                                <div class="col-12">
+                                                    <button type="submit" rippleEffect
+                                                        class="btn btn-primary mr-1">Submit</button>
+                                                    <button type="reset" rippleEffect
+                                                        class="btn btn-outline-secondary">Reset</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </perfect-scrollbar>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</ng-template>

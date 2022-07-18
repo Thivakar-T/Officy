@@ -1,0 +1,49 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-6">
+            <div class="mb-2 pageHeading">
+                <h4 class="">Employee Request</h4>
+            </div>
+        </div>
+        <div class="col-xl-6">
+            <div class="text-right my-auto mb-4">
+                <button type="button" class="btn btn-success btn-sm mb-2 ">
+                    <i class="mdi mdi-plus mr-1"></i> Add User
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-2">
+        <div class="card-body">
+            <table id="empRequestlist" class="table table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>S. No</th>
+                        <th>Name</th>
+                        <th>Phone Number</th>
+                        <th>Email</th>
+                        <th>Qualification</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let list of employeeReqArr ;let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{list.name}}</td>
+                        <td>{{list.phoneNo}}</td>
+                        <td>{{list.email}}</td>
+                        <td>{{list.qualification}}</td>
+                        <td>{{list.requestStatus}}</td>
+                        <td>
+                            <button type="button" 
+                                class="btn btn-success btn-sm mr-2"><a [routerLink]="['/employee/registration',list.id]">Accept </a> </button>
+                            <button type="button" (click)="reject(list.id)"
+                                class="btn btn-danger btn-sm">Reject</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

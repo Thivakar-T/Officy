@@ -1,0 +1,122 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-6">
+            <div class="mb-2 pageHeading">
+                <h4 class="">SuperAdmin Setting List</h4>
+            </div>
+        </div>
+        <div class="col-xl-6">
+            <div class="text-right my-auto mb-4">
+                <button type="button" class="btn btn-success btn-sm mb-2 mr-2 " (click)="openSubject(subject)">
+                    <i class="mdi mdi-plus mr-1"></i> Add User
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-2">
+        <div class="card-body">
+            <table id="superadminlist" class="table table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>S. No</th>
+                        <th>Project Name</th>
+                        <th>Status</th>
+                        <th>Qualification file</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody > 
+                    <tr *ngFor="let list of superAdminArr ;let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{list.projectName}}</td>
+                        <td>{{list.status}}</td>
+                        <td>{{list.quotationFile}}</td>
+                        <td>
+                            <i class="fas fa-edit  text-success mr-2" (click)="editBatch(list, subject)"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<ng-template #subject let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Subject</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" id="subject">
+        <div class="content-wrapper container-xxl p-0">
+            <div class="content-body">
+                <section id="emp-column-form">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <perfect-scrollbar [config]="configData">
+                                    <div class="card-body overflow-auto" style=" max-height: 77vh;">
+                                        <h4 class="card-title">SuperAdmin Setting</h4>
+                                        <form class="form" [formGroup]="superAdminForm" (ngSubmit)="Submit(modal)">
+                                            <div class="row">
+
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="name">Project Name</label>
+                                                        <input type="text" id="name"
+                                                            formControlName="name"
+                                                            [(ngModel)]="superAdminObj.name" class="form-control"
+                                                            placeholder="Name" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="phone">Phone</label>
+                                                        <input type="number" id="phone"
+                                                            formControlName="phone"
+                                                            [(ngModel)]="superAdminObj.phone" class="form-control"
+                                                            placeholder="Phone" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="feesAmount">Fees Amount</label>
+                                                        <input type="number" id="feesAmount"
+                                                            formControlName="feesAmount"
+                                                            [(ngModel)]="superAdminObj.feesAmount" class="form-control"
+                                                            placeholder="FeesAmount" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <fieldset class="form-group">
+                                                            <label for="logoFileName">Logo</label>
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input" type="file"
+                                                                    formControlName="logoFileName"
+                                                                    [(ngModel)]="superAdminObj.logoFileName" ng2FileSelect
+                                                                    logoFileName id="logoFileName" />
+                                                                <label class="custom-file-label">Choose file</label>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                               
+                                                <div class="col-12">
+                                                    <button type="submit" rippleEffect
+                                                        class="btn btn-primary mr-1">Submit</button>
+                                                    <button type="reset" rippleEffect
+                                                        class="btn btn-outline-secondary">Reset</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </perfect-scrollbar>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</ng-template>

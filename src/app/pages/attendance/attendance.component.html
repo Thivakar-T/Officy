@@ -1,0 +1,128 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-6">
+            <div class="mb-2 pageHeading">
+                <h4 class="">Attendance List</h4>
+            </div>
+        </div>
+        <div class="col-xl-6">
+            <div class="text-right my-auto mb-4">
+                <button type="button" class="btn btn-success btn-sm mb-2 mr-2 " (click)="openSubject(subject)">
+                    <i class="mdi mdi-plus mr-1"></i> Add User
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-2">
+        <div class="card-body">
+            <table id="attendanceList" class="table table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>S. No</th>
+                        <th>Date</th>
+                        <th>Out Time</th>
+                        <th>In Time</th>
+                        <th>Present/Absent</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let list of attendanceArr ;let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{list.checkinDate}}</td>
+                        <td>{{list.checkoutTime}}</td>
+                        <td>{{list.checkinTime}}</td>
+                        <td>{{list.attendanceStatus}}</td>
+                        <td>
+                            <i class="fas fa-edit  text-success mr-2" (click)="editBatch(list, subject)"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<ng-template #subject let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Subject</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" id="subject">
+        <div class="content-wrapper container-xxl p-0">
+            <div class="content-body">
+                <section id="emp-column-form">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Employe Attendance</h4>
+                                    <form class="form" [formGroup]="attendanceForm" (ngSubmit)="Submit(modal)">
+                                        <div class="row">
+                                            <div class="col-6 py-3">
+                                                <div class="row">
+                                                    <div class="col-4">Emp Name</div>
+                                                    <div class="col-2">:</div>
+                                                    <div class="col-6">{{this.obj.data.name}}</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 py-3">
+                                                <div class="row">
+                                                    <div class="col-4">Today Date</div>
+                                                    <div class="col-2">:</div>
+                                                    <div class="col-6">{{myDate| date:'yyyy-MM-dd'}}</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 py-3">
+                                                <div class="row">
+                                                    <div class="col-4">CheckIn</div>
+                                                    <div class="col-2">:</div>
+                                                    <div class="col-6">
+                                                        <div class="text-left">
+                                                            <input class="box" formControlName="checkinTime"
+                                                                type="checkbox" (change)="checkInValue($event)">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 py-3">
+                                                <div class="row">
+                                                    <div class="col-4">CheckOut</div>
+                                                    <div class="col-2">:</div>
+                                                    <div class="col-6">
+                                                        <div class="text-left ">
+                                                            <input class="box" formControlName="checkoutTime"
+                                                                type="checkbox" (change)="checkOutValue($event)">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 py-3">
+                                                <div class="row">
+                                                    <div class="col-4"></div>
+                                                    <div class="col-4">
+                                                        <div class="d-flex justify-content-center  mb-4">
+                                                            <button type="submit" rippleEffect
+                                                                class="btn btn-primary mr-1">Save</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+    </div>
+</ng-template>

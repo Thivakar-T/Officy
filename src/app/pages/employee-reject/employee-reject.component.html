@@ -1,0 +1,145 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-6">
+            <div class="mb-2 pageHeading">
+                <h4 class="">Employee Reject</h4>
+            </div>
+        </div>
+        <div class="col-xl-6">
+            <div class="text-right my-auto mb-4">
+                <button type="button" class="btn btn-success btn-sm mb-2 ">
+                    <i class="mdi mdi-plus mr-1"></i> Add User
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-2">
+        <div class="card-body">
+            <table id="empRejectlist" class="table table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>S. No</th>
+                        <th>Name</th>
+                        <th>Phone Number</th>
+                        <th>Email</th>
+                        <th>Qualification</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let list of employeeReqArr ;let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{list.name}}</td>
+                        <td>{{list.phoneNo}}</td>
+                        <td>{{list.email}}</td>
+                        <td>{{list.qualification}}</td>
+                        <td>{{list.requestStatus}}</td>
+                        <td>
+                            <i class="fas fa-edit  text-success mr-2" (click)="open(list.id,dModal)"></i>
+                            <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<ng-template #dModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Reject list</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div>
+        <div class="card-2 mt-3">
+            <div class="card-body detailCard">
+                <div class="row">
+                    <div class="col-md-1">
+                        <span class="mdi  mdi-account-circle my-auto ml-3">
+                        </span>
+                    </div>
+                    <div class="col-xl-10">
+                        <div class="row mt-4 ml-2">
+                            <div class="col-3 ">
+                                <p class=" ">Name</p>
+                            </div>
+                            <div class="">
+                                <p class="">:</p>
+                            </div>
+                            <div class="col-2">
+                                {{rejList.name}}
+                            </div>
+                            <div class="col-3  ">
+                                <p class="">Aadhar Number</p>
+                            </div>
+                            <div class="">
+                                <p class="">:</p>
+                            </div>
+                            <div class="col-2">
+                                {{rejList.aadharNumber}}
+                            </div>
+
+                            <div class="col-3 ">
+                                <p class=" ">Phone No</p>
+                            </div>
+                            <div class="">
+                                <p class="">:</p>
+                            </div>
+                            <div class="col-2">
+                                {{rejList.phoneNo}}
+                            </div>
+                            <div class="col-3  ">
+                                <p class="">Email</p>
+                            </div>
+                            <div class="">
+                                <p class="">:</p>
+                            </div>
+                            <div class="col-2">
+                                {{rejList.email}}
+                            </div>
+
+                            <div class="col-3 ">
+                                <p class=" ">Date Of Birth</p>
+                            </div>
+                            <div class="">
+                                <p class="">:</p>
+                            </div>
+                            <div class="col-2">
+                                {{rejList.dateOfBirth}}
+                            </div>
+                            <div class="col-3  ">
+                                <p class="">Qualification</p>
+                            </div>
+                            <div class="">
+                                <p class="">:</p>
+                            </div>
+                            <div class="col-2">
+                                {{rejList.qualification}}
+                            </div>
+                            <div class="col-3 ">
+                                <p class=" ">Blood Group</p>
+                            </div>
+                            <div class="">
+                                <p class="">:</p>
+                            </div>
+                            <div class="col-2">
+                                {{rejList.bloodGroup}}
+                            </div>
+                            <div class="col-3  ">
+                                <p class="">Permanent Address</p>
+                            </div>
+                            <div class="">
+                                <p class="">:</p>
+                            </div>
+                            <div class="col-2">
+                                {{rejList.permanentAddress}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>

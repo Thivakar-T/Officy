@@ -1,0 +1,199 @@
+<div [ngStyle]="{backgroundImage:'url(assets/images/bg_white.png)'}" class="account-pages">
+    <div [ngStyle]="{backgroundImage:'url(assets/images/bg_color.png)'}" class=" seccond-pages">
+        <div class="home-btn d-none d-sm-block">
+            <a href="" class="text-dark"><i class="fas fa-home h2"></i></a>
+        </div>
+        <div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 col-lg-8 col-xl-10 mt-5">
+                        <div class="card overflow-hidden justify-content-center mt-5">
+                            <div class="bg-soft-primary">
+                                <div class="row">
+                                    <div class="col-7">
+                                        <div class="text-primary p-4">
+                                            <h5 class="text-primary"></h5>
+                                            <p>Register </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-5 align-self-end">
+                                        <img src="assets/images/profile-img.png" alt="" class="img-fluid">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body pt-0 pb-2 mt-1">
+                                <a href="/">
+                                    <div class="avatar-md profile-user-wid mb-0">
+                                        <button class="radius btn  btn-primary p-2">
+                                            Register
+                                        </button>
+                                    </div>
+                                </a>
+                                <div class="p-2 pb-3">
+                                    <form class="form-horizontal" [formGroup]="registerFrom" (ngSubmit)="onSubmit()">
+                                        <ngb-alert type="danger" *ngIf="error" [dismissible]="false">{{ error }}</ngb-alert>
+
+                                        <div class="row">
+                                            <div class="col-md-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="name">Name</label>
+                                                    <input type="text" id="name" formControlName="name"
+                                                        [(ngModel)]="regObj.name" class="form-control"
+                                                        placeholder="Name"
+                                                        [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+                                                    <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                                                        <div *ngIf="f.name.errors.required">Name is required
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="phoneNo">Phone Number</label>
+                                                    <input type="number" id="phoneNo" formControlName="phoneNo"
+                                                        [(ngModel)]="regObj.phoneNo" placeholder="Phone Number"
+                                                        class="form-control"
+                                                        [ngClass]="{ 'is-invalid': submitted && f.phoneNo.errors }" />
+                                                    <div *ngIf="submitted && f.phoneNo.errors" class="invalid-feedback">
+                                                        <div *ngIf="f.phoneNo.errors.required">Phone
+                                                            Number is required</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="UDEmail">Email</label>
+                                                    <input type="text" id="UDEmail" formControlName="email"
+                                                        [(ngModel)]="regObj.email" class="form-control"
+                                                        placeholder="Email"
+                                                        [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                                                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                                        <div *ngIf="f.email.errors.required">Email is required
+                                                        </div>
+                                                        <div *ngIf="f.email.errors.email">Email must be a
+                                                            valid email
+                                                            address</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <div class="form-group ">
+                                                    <label for="permanentAddress">Permanent Address</label>
+                                                    <textarea id="permanentAddress" type="text" class="form-control"
+                                                        formControlName="permanentAddress"
+                                                        [(ngModel)]="regObj.permanentAddress"
+                                                        placeholder="Permanent Address"
+                                                        [ngClass]="{ 'is-invalid':  submitted && f.permanentAddress.errors }">
+                                                    </textarea>
+                                                    <div *ngIf="submitted && f.permanentAddress.errors"
+                                                        class="invalid-feedback">
+                                                        <div *ngIf="f.permanentAddress.errors.required">
+                                                            Permanent Address
+                                                            Number is required</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <div class="form-group ">
+                                                    <label for="temporaryAddress">Temporary Address</label>
+                                                    <textarea id="temporaryAddress" type="text" class="form-control"
+                                                        formControlName="temporaryAddress"
+                                                        [(ngModel)]="regObj.temporaryAddress"
+                                                        placeholder="Temporary Address"
+                                                        [ngClass]="{ 'is-invalid':  submitted && f.temporaryAddress.errors }">
+                                                    </textarea>
+                                                    <div *ngIf="submitted && f.temporaryAddress.errors"
+                                                        class="invalid-feedback">
+                                                        <div *ngIf="f.temporaryAddress.errors.required">
+                                                            Temporary Address
+                                                            Number is required</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="aadharNumber">Adhar Card Number</label>
+                                                    <input type="number" id="aadharNumber"
+                                                        [(ngModel)]="regObj.aadharNumber" formControlName="aadharNumber"
+                                                        placeholder="Adhar Card Number" class="form-control"
+                                                        [ngClass]="{ 'is-invalid': submitted && f.aadharNumber.errors }" />
+                                                    <div *ngIf="submitted && f.aadharNumber.errors"
+                                                        class="invalid-feedback">
+                                                        <div *ngIf="f.aadharNumber.errors.required">Adhar
+                                                            Card
+                                                            Number is required</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="qualification">Qualification</label>
+                                                    <input type="text" id="qualification"
+                                                        formControlName="qualification"
+                                                        [(ngModel)]="regObj.qualification" class="form-control"
+                                                        placeholder="Qualification"
+                                                        [ngClass]="{ 'is-invalid': submitted && f.qualification.errors }" />
+                                                    <div *ngIf="submitted && f.qualification.errors"
+                                                        class="invalid-feedback">
+                                                        <div *ngIf="f.qualification.errors.required">
+                                                            Qualification is required</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="dateOfBirth">Date of Birth</label>
+                                                    <input type="text" class="form-control" placeholder="yyyy-mm-dd"
+                                                        formControlName="dateOfBirth" id="dateOfBirth" name="name"
+                                                        [(ngModel)]="regObj.dateOfBirth" ngbDatepicker
+                                                        #dateOfBirth="ngbDatepicker" (click)="dateOfBirth.toggle()"
+                                                        [ngClass]="{ 'is-invalid': submitted && f.dateOfBirth.errors }">
+                                                    <div *ngIf="submitted && f.dateOfBirth.errors"
+                                                        class="invalid-feedback">
+                                                        <div *ngIf="f.dateOfBirth.errors.required">
+                                                            Date of Birth is required</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="bloodGroup"> Blood Group</label>
+                                                    <input type="text" formControlName="bloodGroup" id="bloodGroup"
+                                                        [(ngModel)]="regObj.bloodGroup" class="form-control"
+                                                        placeholder="Blood Group" name="bloodGroup" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <div class="form-group">
+                                                    <label for="requestStatus"> Request Status</label>
+                                                    <input readonly  type="text" id="requestStatus" formControlName="requestStatus" [(ngModel)]="regObj.requestStatus"
+                                                        class="form-control" placeholder="RequestStatus" name="requestStatus" />
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <button type="submit" rippleEffect
+                                                    class="btn btn-primary mr-1">Submit</button>
+                                                <button type="reset" rippleEffect
+                                                    class="btn btn-outline-secondary">Reset</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="mt-4 text-center">
+                            <p>Remember It ? <a routerLink="/account/login" class="font-weight-medium text-primary">
+                                    Login</a> </p>
+                            <p>© {{year}} Officy.</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- end container -->
+        </div>
+    </div>
+</div>
+<!-- end page -->

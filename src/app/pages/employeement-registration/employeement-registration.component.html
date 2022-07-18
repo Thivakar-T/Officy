@@ -1,0 +1,354 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xl-6">
+            <div class="mb-2 pageHeading">
+                <h4 class="">Employee List</h4>
+            </div>
+        </div>
+        <div class="col-xl-6">
+            <div class="text-right my-auto mb-4">
+                <button type="button" class="btn btn-success btn-sm mb-2 mr-2 " (click)="openSubject(subject)">
+                    <i class="mdi mdi-plus mr-1"></i> Add User
+                </button>
+                <button *ngIf="acceptSubmitted" type="button" class="btn btn-primary btn-sm mb-2 "
+                    (click)="open(subject)">
+                    Accept
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="card-2">
+        <div class="card-body">
+            <table id="emplist" class="table table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>S. No</th>
+                        <th>Name</th>
+                        <th>Phone Number</th>
+                        <th>Email</th>
+                        <th>Date Of Joining</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let list of employeeArr ;let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{list.name}}</td>
+                        <td>{{list.phoneNo}}</td>
+                        <td>{{list.email}}</td>
+                        <td>{{list.dateOfJoining}}</td>
+                        <td>{{list.status}}</td>
+                        <td>
+                            <i class="fas fa-edit  text-success mr-2" (click)="editBatch(list, subject)"></i>
+                            <i class="fa fa-trash text-danger" aria-hidden="true"
+                                (click)="openModal(dModal,list.id)"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<ng-template #dModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Confirm Delete</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div>
+        <h6 class="ml-3 mt-2">Are you sure to Delete this ?</h6>
+        <div class="text-right mt-2 mr-2">
+            <button type="button" class="btn btn-primary btn-sm ml-2 mb-3" (click)="deleteData(modal)">Yes</button>
+        </div>
+    </div>
+</ng-template>
+<ng-template #subject let-modal>
+    <div class="modal-header">
+        <h5 class="modal-title">Subject</h5>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body" id="subject">
+        <div class="content-wrapper container-xxl p-0">
+            <div class="content-body">
+                <section id="emp-column-form">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <perfect-scrollbar [config]="configData">
+                                    <div class="card-body overflow-auto" style=" max-height: 77vh;">
+                                        <h4 class="card-title">Employeement Regisration</h4>
+                                        <form class="form" [formGroup]="empForm" (ngSubmit)="Submit(modal)">
+                                            <div class="row">
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="empNo"> EmpNo</label>
+                                                        <input readonly type="text" id="empNo" formControlName="empNo"
+                                                            [(ngModel)]="empObj.empNo" class="form-control"
+                                                            placeholder="EmpNo" name="empNo" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="name">Name</label>
+                                                        <input type="text" id="name" formControlName="name"
+                                                            [(ngModel)]="empObj.name" class="form-control"
+                                                            placeholder="Name"
+                                                            [ngClass]="{ 'is-invalid': empFormSubmitted && f.name.errors }" />
+                                                        <div *ngIf="empFormSubmitted && f.name.errors"
+                                                            class="invalid-feedback">
+                                                            <div *ngIf="f.name.errors.required">Name is required
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group ">
+                                                        <span class="">
+                                                            <label for="productname">Mobile No</label>
+                                                            <input class="form-control" id="phoneNo"
+                                                                formControlName="phoneNo" [(ngModel)]="empObj.phoneNo"
+                                                                type="text" placeholder="Mobile No"
+                                                                [ngClass]="{ 'is-invalid': empFormSubmitted && f.phoneNo.errors || f.phoneNo.invalid && (f.phoneNo.dirty || f.phoneNo.touched)}">
+                                                            <div *ngIf="empFormSubmitted && f.phoneNo.errors ||f.phoneNo.invalid && (f.phoneNo.dirty || f.phoneNo.touched)"
+                                                                class="invalid-feedback">
+                                                                <div *ngIf="f.phoneNo.errors.required">Required</div>
+                                                                <div
+                                                                    *ngIf="f.phoneNo.errors.pattern || f.phoneNo.errors.maxlength || f.phoneNo.errors.minlength">
+                                                                    Phone number must be at least 10 numbers</div>
+                                                            </div>
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="UDEmail">Email</label>
+                                                        <input type="text" id="UDEmail" formControlName="email"
+                                                            [(ngModel)]="empObj.email" class="form-control"
+                                                            placeholder="Email"
+                                                            [ngClass]="{ 'is-invalid': empFormSubmitted && f.email.errors }" />
+                                                        <div *ngIf="empFormSubmitted && f.email.errors"
+                                                            class="invalid-feedback">
+                                                            <div *ngIf="f.email.errors.required">Email is required
+                                                            </div>
+                                                            <div *ngIf="f.email.errors.email">Email must be a
+                                                                valid email
+                                                                address</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <fieldset class="form-group">
+                                                            <label for="fileUploadPhoto">Photo</label>
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input" type="file"
+                                                                    [(ngModel)]="empObj.fileUploadPhoto"
+                                                                    formControlName="fileUploadPhoto" ng2FileSelect
+                                                                    photo id="fileUploadPhoto" />
+                                                                <label class="custom-file-label">Choose file</label>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <fieldset class="form-group">
+                                                            <label for="fileUploadCertification">Certification</label>
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input" type="file"
+                                                                    formControlName="fileUploadCertification"
+                                                                    [(ngModel)]="empObj.fileUploadCertification"
+                                                                    ng2FileSelect certification
+                                                                    id="fileUploadCertification" />
+                                                                <label class="custom-file-label">Choose file</label>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <div class="text-right ">
+                                                        <input class="box" type="checkbox"
+                                                            (change)="checkValue($event)">
+                                                        Same as Permanent
+                                                        Address
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group ">
+                                                        <label for="permanentAddress">Permanent Address</label>
+                                                        <textarea id="permanentAddress" type="text" class="form-control"
+                                                            formControlName="permanentAddress"
+                                                            [(ngModel)]="empObj.permanentAddress"
+                                                            placeholder="Permanent Address"
+                                                            [ngClass]="{ 'is-invalid':  empFormSubmitted && f.permanentAddress.errors }">
+                                                </textarea>
+                                                        <div *ngIf="empFormSubmitted && f.permanentAddress.errors"
+                                                            class="invalid-feedback">
+                                                            <div *ngIf="f.permanentAddress.errors.required">
+                                                                Permanent Address
+                                                                Number is required</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group ">
+
+                                                        <label for="temporaryAddress">Temporary Address</label>
+                                                        <textarea id="temporaryAddress" type="text" class="form-control"
+                                                            formControlName="temporaryAddress"
+                                                            [(ngModel)]="empObj.temporaryAddress"
+                                                            placeholder="Temporary Address"
+                                                            [ngClass]="{ 'is-invalid':  empFormSubmitted && f.temporaryAddress.errors }">
+                                                    </textarea>
+                                                        <div *ngIf="empFormSubmitted && f.temporaryAddress.errors"
+                                                            class="invalid-feedback">
+                                                            <div *ngIf="f.temporaryAddress.errors.required">
+                                                                Temporary Address
+                                                                Number is required</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <span class="">
+                                                            <label for="aadharCardNo">Adhar Card Number</label>
+                                                            <input class="form-control" id="aadharCardNo"
+                                                                formControlName="aadharCardNo"
+                                                                [(ngModel)]="empObj.aadharCardNo" type="text"
+                                                                placeholder="Adhar Card Number"
+                                                                [ngClass]="{ 'is-invalid': empFormSubmitted && f.aadharCardNo.errors || f.aadharCardNo.invalid && (f.aadharCardNo.dirty || f.aadharCardNo.touched)}">
+                                                            <div *ngIf="empFormSubmitted && f.aadharCardNo.errors ||f.aadharCardNo.invalid && (f.aadharCardNo.dirty || f.aadharCardNo.touched)"
+                                                                class="invalid-feedback">
+                                                                <div *ngIf="f.aadharCardNo.errors.required">Required
+                                                                </div>
+                                                                <div
+                                                                    *ngIf="f.aadharCardNo.errors.pattern || f.aadharCardNo.errors.maxlength || f.aadharCardNo.errors.minlength">
+                                                                    Adhar Card Number must be at least 12 numbers</div>
+                                                            </div>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <fieldset class="form-group">
+                                                            <label for="adharPhoto">Adhar Photo</label>
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input" type="file"
+                                                                    formControlName="adharPhoto"
+                                                                    [(ngModel)]="empObj.adharPhoto" ng2FileSelect photo
+                                                                    id="adharPhoto" />
+                                                                <label class="custom-file-label">Choose file</label>
+                                                            </div>
+                                                        </fieldset>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="qualification">Qualification</label>
+                                                        <input type="text" id="qualification"
+                                                            formControlName="qualification"
+                                                            [(ngModel)]="empObj.qualification" class="form-control"
+                                                            placeholder="Qualification"
+                                                            [ngClass]="{ 'is-invalid': empFormSubmitted && f.qualification.errors }" />
+                                                        <div *ngIf="empFormSubmitted && f.qualification.errors"
+                                                            class="invalid-feedback">
+                                                            <div *ngIf="f.qualification.errors.required">
+                                                                Qualification is required</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="dateOfBirth">Date of Birth</label>
+                                                        <input type="text" class="form-control" placeholder="yyyy-mm-dd"
+                                                            formControlName="dateOfBirth" id="dateOfBirth" name="name"
+                                                            [(ngModel)]="empObj.dateOfBirth" ngbDatepicker
+                                                            (ngModelChange)="checksAge()" #dateOfBirth="ngbDatepicker"
+                                                            (click)="dateOfBirth.toggle()"
+                                                            [ngClass]="{ 'is-invalid': empFormSubmitted && f.dateOfBirth.errors }">
+                                                        <div *ngIf="empFormSubmitted && f.dateOfBirth.errors"
+                                                            class="invalid-feedback">
+                                                            <div *ngIf="f.dateOfBirth.errors.required">
+                                                                Date of Birth is required</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="dateOfJoining">Date of Join</label>
+                                                        <input type="text" class="form-control" placeholder="yyyy-mm-dd"
+                                                            (ngModelChange)="checksAge()"
+                                                            formControlName="dateOfJoining" id="dateOfJoining"
+                                                            name="name" [(ngModel)]="empObj.dateOfJoining" ngbDatepicker
+                                                            #dateOfJoining="ngbDatepicker"
+                                                            (click)="dateOfJoining.toggle()"
+                                                            [ngClass]="{ 'is-invalid': empFormSubmitted && f.dateOfJoining.errors }">
+                                                        <div *ngIf="empFormSubmitted && f.dateOfJoining.errors"
+                                                            class="invalid-feedback">
+                                                            <div *ngIf="f.dateOfJoining.errors.required">
+                                                                Date of Join is required</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="age">Age</label>
+                                                        <input type="number" id="age" formControlName="age"
+                                                            (ngModelChange)="checksAge()" [(ngModel)]="empObj.age"
+                                                            placeholder="Age" class="form-control"
+                                                            [ngClass]="{ 'is-invalid': empFormSubmitted && f.age.errors }" />
+                                                        <div *ngIf="empFormSubmitted && f.age.errors"
+                                                            class="invalid-feedback">
+                                                            <div *ngIf="f.age.errors.required">Age is required</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="bloodGroup"> Blood Group</label>
+                                                        <input type="text" formControlName="bloodGroup" id="bloodGroup"
+                                                            [(ngModel)]="empObj.bloodGroup" class="form-control"
+                                                            placeholder="Blood Group" name="bloodGroup" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="role">Role</label>
+                                                        <ng-select [items]="roleArr" id="role" formControlName="role"
+                                                            bindLabel="name" bindValue="id" [(ngModel)]="empObj.role"
+                                                            placeholder="Choose"> </ng-select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-12">
+                                                    <div class="form-group">
+                                                        <label for="stream">Stream</label>
+                                                        <ng-select [items]="streamArr" id="stream"
+                                                            formControlName="stream" bindLabel="id" bindValue="id"
+                                                            [(ngModel)]="empObj.stream" bindLabel="name"
+                                                            placeholder="Choose"> </ng-select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12">
+                                                    <button type="submit" rippleEffect
+                                                        class="btn btn-primary mr-1">Submit</button>
+                                                    <button type="reset" rippleEffect
+                                                        class="btn btn-outline-secondary">Reset</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </perfect-scrollbar>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</ng-template>
