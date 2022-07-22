@@ -165,6 +165,7 @@ export class EmployeementRegistrationComponent implements OnInit {
     this.empObj.age = this.empForm.value.dateOfJoining.year - this.empForm.value.dateOfBirth.year;
     console.log(this.empObj.age)
   }
+
   Submit(modal) {
     this.empFormSubmitted = true;
     if (this.empForm.invalid) {
