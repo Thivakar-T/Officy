@@ -54,8 +54,8 @@ export class FeesPaymentPageComponent implements OnInit {
         paymentType: [null],
         status: [null],
       })
-      this.getBatchList()
-      this.getEMployeeList()  
+    this.getBatchList()
+    this.getEMployeeList()
     this.obj = this.authenticationService.currentUser()
     console.log(this.obj.data.name)
     console.log(this.obj.data.employeeId)
@@ -64,10 +64,10 @@ export class FeesPaymentPageComponent implements OnInit {
   getEMployeeList() {
     this.employeeServiceService.get().pipe(first())
       .subscribe(
-        res => {         
+        res => {
           this.employeeNameArr = res.data
           console.log(res)
-          console.log( this.employeeNameArr)
+          console.log(this.employeeNameArr)
         })
   }
   Submit(modal) {
